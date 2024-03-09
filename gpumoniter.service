@@ -1,0 +1,22 @@
+
+# cd /etc/systemd/system
+# vim gpumoniter.service
+[Unit]
+Description=gpumoniter
+After=network.target
+
+
+[Service]
+ExecStart=python3 /etc/zabbix/read_gpu_status_info.py
+
+
+[Install]
+WantedBy=multi-user.target
+
+# scp 分发到其他服务器
+# scp  xxx.py  host:`pwd`
+# scp  xxx.service  host:`pwd`
+# systemctl enable --now gpumoniter.service
+# systemctl status  gpumoniter.service
+# systemctl restart gpumoniter.service
+# journalctl -u gpumoniter.service -n 10 -f
